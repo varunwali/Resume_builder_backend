@@ -11,20 +11,18 @@ config({ path: "./config/config.env" }); //loading environment variables
 
 app.use(
   cors({
-    origin: "*",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    credentials: true,
-    optionsSuccessStatus: 200, // Some legacy browsers (IE11, various SmartTVs) choke on 204
+    origin: [process.env.FRONTEND_URL], // origin is to set to allow requests only from our frontend url
+    methods: ["GET", "PUT", "DELETE", "PUT"], //these  are the allowed request types to be made by the user
+    credentials: true, //this allows us to use cookies in our application
   })
-);
+); //enabling CORS to  allow requests from different origins
 
 app.use(cookieParser());
-app.use(express.json());
+app.use(express.json()); //parsing incoming requests with JSON payloads
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1/user", userRoute);
 dbConnection();
 
 app.use(errorMiddleware);
-
 export default app;
