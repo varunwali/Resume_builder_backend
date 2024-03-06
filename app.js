@@ -9,17 +9,9 @@ import { errorMiddleware } from "./middlewares/error.js";
 const app = express(); //creating the express instance
 config({ path: "./config/config.env" }); //loading environment variables
 
-const allowedOrigins = ["https://resume-builder-frontend-amber.vercel.app"];
-
 app.use(
   cors({
-    origin: (origin, callback) => {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: "*",
     methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
