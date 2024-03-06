@@ -22,6 +22,13 @@ app.use(express.json()); //parsing incoming requests with JSON payloads
 app.use(express.urlencoded({ extended: true }));
 
 app.use("/api/v1/user", userRoute);
+app.get("/", (req, res, next) => {
+  return res.status(200).json({
+    success: true,
+    message: "HELLO WORLD AGAIN",
+  });
+});
+
 dbConnection();
 
 app.use(errorMiddleware);
