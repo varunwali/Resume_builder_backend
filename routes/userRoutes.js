@@ -10,7 +10,10 @@ import { isAuthenticated } from "../middlewares/auth.js";
 const router = express.Router();
 
 router.get("/", (req, res) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://resume-builder-frontend-amber.vercel.app"
+  );
   res.setHeader("Access-Control-Allow-Credentials", "true");
   res.setHeader("Access-Control-Max-Age", "1800");
   res.setHeader("Access-Control-Allow-Headers", "content-type");
