@@ -9,13 +9,7 @@ import { errorMiddleware } from "./middlewares/error.js";
 const app = express(); //creating the express instance
 config({ path: "./config/config.env" }); //loading environment variables
 
-app.use(
-  cors({
-    origin: process.env.FRONTEND_URL, // origin is to set to allow requests only from our frontend url
-    methods: ["GET", "PUT", "DELETE", "PUT"], //these  are the allowed request types to be made by the user
-    credentials: true, //this allows us to use cookies in our application
-  })
-); //enabling CORS to  allow requests from different origins
+app.use(cors());
 
 app.use(cookieParser());
 app.use(express.json()); //parsing incoming requests with JSON payloads
