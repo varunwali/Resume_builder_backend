@@ -6,13 +6,12 @@ import cookieParser from "cookie-parser";
 import { dbConnection } from "./database/dbConnection.js";
 import { errorMiddleware } from "./middlewares/error.js";
 
-process.env.NODE_OPTIONS = "--max-old-space-size=4096";
 const app = express(); //creating the express instance
 config({ path: "./config/config.env" }); //loading environment variables
 
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL], // origin is to set to allow requests only from our frontend url
+    // origin is to set to allow requests only from our frontend url
     methods: ["GET", "PUT", "DELETE", "PUT"], //these  are the allowed request types to be made by the user
     credentials: true, //this allows us to use cookies in our application
   })
