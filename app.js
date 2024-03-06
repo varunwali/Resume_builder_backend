@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import { dbConnection } from "./database/dbConnection.js";
 import { errorMiddleware } from "./middlewares/error.js";
 
+process.env.NODE_OPTIONS = "--max-old-space-size=4096";
 const app = express(); //creating the express instance
 config({ path: "./config/config.env" }); //loading environment variables
 
