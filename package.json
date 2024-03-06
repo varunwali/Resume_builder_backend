@@ -21,6 +21,7 @@
     "jsonwebtoken": "^9.0.2",
     "latest": "^0.2.0",
     "mongoose": "^8.2.0",
+    "rebuild": "^0.1.2",
     "validator": "^13.11.0"
   }
 }
