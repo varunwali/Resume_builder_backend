@@ -10,7 +10,7 @@ const app = express(); //creating the express instance
 config({ path: "./config/config.env" }); //loading environment variables
 
 // Define allowed origins
-const allowedOrigins = ["https://resume-builder-frontend-amber.vercel.app"];
+const allowedOrigins = ["https://resume-builder-frontend-amber.vercel.app/"];
 
 app.use(
   cors({
