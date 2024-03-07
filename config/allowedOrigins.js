@@ -1,3 +1,3 @@
-const allowedOrigins = ["https://resume-builder-frontend-amber.vercel.app"];
+const allowedOrigins = ["https://resume-frontend-project.vercel.app"];
 
 export default allowedOrigins;
