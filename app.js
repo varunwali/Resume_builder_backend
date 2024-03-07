@@ -12,6 +12,7 @@ config({ path: "./config/config.env" }); //loading environment variables
 app.use(
   cors({
     origin: "https://resume-builder-frontend-amber.vercel.app",
+    credentials: true,
   })
 );
 
