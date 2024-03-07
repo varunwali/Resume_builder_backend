@@ -1,5 +1,6 @@
 import express from "express";
 import { config } from "dotenv";
+import cors from "cors";
 import userRoute from "./routes/userRoutes.js";
 import cookieParser from "cookie-parser";
 import { dbConnection } from "./database/dbConnection.js";
@@ -8,22 +9,13 @@ import { errorMiddleware } from "./middlewares/error.js";
 const app = express(); //creating the express instance
 config({ path: "./config/config.env" }); //loading environment variables
 
-app.use((req, res, next) => {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://resume-builder-frontend-amber.vercel.app"
-  );
-  // You can also set other CORS headers if needed
-  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-
-  // Allow the preflight request to proceed
-  if (req.method === "OPTIONS") {
-    res.sendStatus(200);
-  } else {
-    next();
-  }
-});
+app.use(
+  cors({
+    origin: "https://resume-builder-frontend-amber.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept"],
+  })
+);
 
 app.use(cookieParser());
 app.use(express.json()); //parsing incoming requests with JSON payloads
