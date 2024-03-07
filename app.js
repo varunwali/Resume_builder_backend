@@ -9,12 +9,7 @@ import { errorMiddleware } from "./middlewares/error.js";
 const app = express(); //creating the express instance
 config({ path: "./config/config.env" }); //loading environment variables
 
-app.use(
-  cors({
-    origin: "https://resume-builder-frontend-amber.vercel.app",
-    credentials: true,
-  })
-);
+app.use(cors());
 
 app.use(cookieParser());
 app.use(express.json()); //parsing incoming requests with JSON payloads
