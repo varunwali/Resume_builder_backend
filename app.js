@@ -4,8 +4,8 @@ import cookieParser from "cookie-parser";
 import { dbConnection } from "./database/dbConnection.js";
 import { errorMiddleware } from "./middlewares/error.js";
 import cors from "cors";
-import corsOptions from "./config/corscontroller.js";
 import allowedOrigins from "./config/allowedOrigins.js";
+
 const app = express();
 
 // Load environment variables
@@ -20,6 +20,10 @@ app.listen(PORT, () => {
 dbConnection();
 
 // CORS configuration
+const corsOptions = {
+  origin: allowedOrigins,
+  credentials: true,
+};
 app.use(cors(corsOptions));
 
 // Parse cookies
@@ -42,15 +46,5 @@ app.get("/", (req, res) => {
 
 // Error handling middleware
 app.use(errorMiddleware);
-
-// Set CORS headers manually
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", allowedOrigins);
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept"
-  );
-  next();
-});
 
 export default app;
