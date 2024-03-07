@@ -9,30 +9,11 @@ import { errorMiddleware } from "./middlewares/error.js";
 const app = express(); //creating the express instance
 config({ path: "./config/config.env" }); //loading environment variables
 
-app.use(cors());
-
-app.options("*", (req, res) => {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://resume-builder-frontend-amber.vercel.app"
-  );
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "PUT, POST, GET, DELETE, PATCH"
-  );
-  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
-  res.sendStatus(200);
-});
-
-// Middleware to set CORS headers for all routes
-app.use((req, res, next) => {
-  res.setHeader(
-    "Access-Control-Allow-Origin",
-    "https://resume-builder-frontend-amber.vercel.app"
-  );
-  res.setHeader("Access-Control-Allow-Credentials", "true");
-  next();
-});
+app.use(
+  cors({
+    origin: "https://resume-builder-frontend-amber.vercel.app",
+  })
+);
 
 app.use(cookieParser());
 app.use(express.json()); //parsing incoming requests with JSON payloads
