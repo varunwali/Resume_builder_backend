@@ -10,21 +10,11 @@ const app = express(); //creating the express instance
 config({ path: "./config/config.env" }); //loading environment variables
 
 app.use(
-  cors((req, res, next) => {
-    res.header(
-      "Access-Control-Allow-Origin",
-      "https://resume-builder-frontend-amber.vercel.app"
-    );
-    res.header(
-      "Access-Control-Allow-Headers",
-      "Origin, X-Requested-With, Content-Type, Accept"
-    );
-    res.header(
-      "Access-Control-Allow-Methods",
-      "GET, POST, PUT, DELETE, OPTIONS"
-    );
-    res.header("Access-Control-Allow-Credentials", "true");
-    next();
+  cors({
+    origin: "https://resume-builder-frontend-amber.vercel.app",
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Origin", "X-Requested-With", "Content-Type", "Accept"],
+    credentials: true,
   })
 );
 
