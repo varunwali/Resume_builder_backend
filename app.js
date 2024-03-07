@@ -11,6 +11,23 @@ config({ path: "./config/config.env" }); //loading environment variables
 
 app.use(cors());
 
+app.use((req, res, next) => {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://resume-builder-frontend-amber.vercel.app"
+  );
+  // You can also set other CORS headers if needed
+  res.setHeader("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+
+  // Allow the preflight request to proceed
+  if (req.method === "OPTIONS") {
+    res.sendStatus(200);
+  } else {
+    next();
+  }
+});
+
 app.use(cookieParser());
 app.use(express.json()); //parsing incoming requests with JSON payloads
 app.use(express.urlencoded({ extended: true }));
