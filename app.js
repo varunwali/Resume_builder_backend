@@ -5,8 +5,8 @@ import { dbConnection } from "./database/dbConnection.js";
 import { errorMiddleware } from "./middlewares/error.js";
 import cors from "cors";
 import corsOptions from "./config/corscontroller.js";
-
-const app = express(); // Creating the express instance
+import allowedOrigins from "./config/allowedOrigins.js";
+const app = express();
 
 // Load environment variables
 const PORT = process.env.PORT || 3000;
@@ -42,5 +42,15 @@ app.get("/", (req, res) => {
 
 // Error handling middleware
 app.use(errorMiddleware);
+
+// Set CORS headers manually
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", allowedOrigins);
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
+  next();
+});
 
 export default app;
