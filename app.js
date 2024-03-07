@@ -4,9 +4,12 @@ import userRoute from "./routes/userRoutes.js";
 import cookieParser from "cookie-parser";
 import { dbConnection } from "./database/dbConnection.js";
 import { errorMiddleware } from "./middlewares/error.js";
+import { cors } from "cors";
 
 const app = express(); //creating the express instance
 config({ path: "./config/config.env" }); //loading environment variables
+
+app.use(cors());
 
 app.use(cookieParser());
 app.use(express.json()); //parsing incoming requests with JSON payloads
