@@ -9,14 +9,7 @@ import cors from "cors";
 const app = express(); //creating the express instance
 config({ path: "./config/config.env" }); //loading environment variables
 
-app.use(
-  cors({
-    origin: "https://resume-builder-frontend-amber.vercel.app",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true, // Allow credentials
-  })
-);
+app.use(cors());
 
 app.use(cookieParser());
 app.use(express.json()); //parsing incoming requests with JSON payloads
