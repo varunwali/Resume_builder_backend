@@ -11,18 +11,26 @@ config({ path: "./config/config.env" }); //loading environment variables
 
 app.use(cors());
 
+app.options("*", (req, res) => {
+  res.setHeader(
+    "Access-Control-Allow-Origin",
+    "https://resume-builder-frontend-amber.vercel.app"
+  );
+  res.setHeader(
+    "Access-Control-Allow-Methods",
+    "PUT, POST, GET, DELETE, PATCH"
+  );
+  res.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.sendStatus(200);
+});
+
+// Middleware to set CORS headers for all routes
 app.use((req, res, next) => {
   res.setHeader(
     "Access-Control-Allow-Origin",
     "https://resume-builder-frontend-amber.vercel.app"
   );
   res.setHeader("Access-Control-Allow-Credentials", "true");
-  res.setHeader("Access-Control-Max-Age", "1800");
-  res.setHeader("Access-Control-Allow-Headers", "content-type");
-  res.setHeader(
-    "Access-Control-Allow-Methods",
-    "PUT, POST, GET, DELETE, PATCH, OPTIONS"
-  );
   next();
 });
 
