@@ -5,9 +5,9 @@
   "main": "app.js",
   "type": "module",
   "scripts": {
-    "start": "node server.js",
-    "dev": "nodemon server.js",
-    "debug": "ndb server.js"
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "debug": "ndb app.js"
   },
   "author": "varun",
   "license": "ISC",

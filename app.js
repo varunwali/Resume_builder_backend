@@ -5,18 +5,18 @@ import cookieParser from "cookie-parser";
 import { dbConnection } from "./database/dbConnection.js";
 import { errorMiddleware } from "./middlewares/error.js";
 import cors from "cors";
+import corsOptions from "./config/corscontroller.js";
 
 const app = express(); //creating the express instance
 config({ path: "./config/config.env" }); //loading environment variables
 
-app.use(
-  cors({
-    origin: "https://resume-builder-frontend-amber.vercel.app",
-    methods: ["GET", "POST", "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-    credentials: true, // Allow credentials
-  })
-);
+app.listen(process.env.PORT, () => {
+  console.log(`Server running at port ${process.env.PORT}`);
+});
+
+dbConnection();
+
+app.use(cors(corsOptions));
 
 app.use(cookieParser());
 app.use(express.json()); //parsing incoming requests with JSON payloads
@@ -30,7 +30,6 @@ app.get("/", (req, res, next) => {
   });
 });
 
-dbConnection();
-
 app.use(errorMiddleware);
+
 export default app;
