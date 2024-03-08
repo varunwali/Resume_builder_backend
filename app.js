@@ -4,7 +4,6 @@ import cookieParser from "cookie-parser";
 import { dbConnection } from "./database/dbConnection.js";
 import { errorMiddleware } from "./middlewares/error.js";
 import cors from "cors";
-import allowedOrigins from "./config/allowedOrigins.js";
 
 const app = express();
 
@@ -27,29 +26,16 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // CORS configuration
-const corsOptions = {
-  origin: function (origin, callback) {
-    if (!origin || allowedOrigins.indexOf(origin) !== -1) {
-      callback(null, true);
-    } else {
-      callback(new Error("Not allowed by CORS"));
-    }
-  },
-  credentials: true,
-};
 
 // Use cors middleware
-app.use(cors(corsOptions));
+app.use(
+  cors({
+    credentials: true,
+    origin: "https://resume-frontend-project-1.onrender.com",
+  })
+);
 
 // Set CORS headers manually
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", allowedOrigins);
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin"
-  );
-  next();
-});
 
 // Define routes
 app.use("/api/v1/user", userRoute);
