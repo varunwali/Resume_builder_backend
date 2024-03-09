@@ -5,8 +5,9 @@ import jwt from "jsonwebtoken";
 
 export const isAuthenticated = catchAsyncErrors(async (req, res, next) => {
   const token = req.cookies.token; // Corrected accessing token from cookies
-
+  console.log(token);
   if (!token) {
+    console.log(token);
     return next(new ErrorHandler("User Not Authorized", 401));
   }
 
