@@ -4,21 +4,23 @@ import ErrorHandler from "./error.js";
 import jwt from "jsonwebtoken";
 
 export const isAuthenticated = catchAsyncErrors(async (req, res, next) => {
-  const { token } = req.cookies;
+  const token = req.cookies.token; // Corrected accessing token from cookies
+
   if (!token) {
     return next(new ErrorHandler("User Not Authorized", 401));
   }
-  const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
 
-  req.user = await User.findById(decoded.id);
-  if (!req.user) {
-    return next(
-      new ErrorHandler(
-        "The user belonging to this token does no longer exist.",
-        401
-      )
-    );
+  try {
+    const decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+    req.user = await User.findById(decoded.id);
+
+    if (!req.user) {
+      return next(new ErrorHandler("User does not exist.", 401));
+    }
+
+    next();
+  } catch (err) {
+    // Catch any errors that occur during token verification
+    return next(new ErrorHandler("Invalid token", 401));
   }
-
-  next();
 });
