@@ -18,13 +18,13 @@ export const signup = catchAsyncErrors(async (req, res, next) => {
     phone,
     password,
   });
-  sendToken(user, 201, res, `${name} Signedup Successfully!`);
+  sendToken(user, 201, res, `Welcome ${name} !`);
 });
 
 export const login = catchAsyncErrors(async (req, res, next) => {
   const { email, password } = req.body; //fetching from the body
   if (!email || !password) {
-    return next(new ErrorHandler("Please provide email or password."));
+    return next(new ErrorHandler("Please provide email and password."));
   }
   const user = await User.findOne({ email }).select("+password"); //fetching user with email  and selecting only password field to compare it
   if (!user) {
@@ -34,7 +34,7 @@ export const login = catchAsyncErrors(async (req, res, next) => {
   if (!isPasswordMatched) {
     return next(new ErrorHandler("Invalid Email Or Password.", 400));
   }
-  sendToken(user, 201, res, `${user.name} Logged In!`);
+  sendToken(user, 201, res, `Welcome Back ${user.name}`);
 });
 
 export const logout = catchAsyncErrors(async (req, res, next) => {
